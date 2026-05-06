@@ -226,6 +226,7 @@ section{position:relative}
 .field input:focus,.field select:focus{border-color:color-mix(in srgb, var(--red), #000 20%);box-shadow:0 0 0 3px color-mix(in srgb, var(--red), #fff 78%)}
 .field.full{grid-column:1 / -1}
 .form-actions{display:flex;gap:10px;align-items:center;justify-content:flex-start;margin-top:1rem;flex-wrap:wrap}
+.form-actions .btn-red[disabled]{opacity:.55;cursor:not-allowed;filter:saturate(.7)}
 .form-note{font-size:12px;color:var(--text-3);line-height:1.4;margin-top:.75rem}
 .form-success{display:none;margin-top:.75rem;font-weight:800;color:var(--black)}
 .form-success.visible{display:block}
@@ -808,8 +809,11 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
         })(),
       });
     }catch(_e){}
-    submitBtn?.removeAttribute('disabled');
     success?.classList.add('visible');
+    if(submitBtn){
+      submitBtn.textContent = 'Enviado';
+      submitBtn.setAttribute('disabled','true');
+    }
     if(ctaConfirm){
       ctaConfirm.style.display = '';
     }
