@@ -145,6 +145,23 @@ section{position:relative}
 .muda-footer-label{font-size:12px;color:rgba(255,255,255,.35);font-weight:600;text-transform:uppercase;letter-spacing:.07em}
 .muda-footer-value{font-family:'Satoshi',-apple-system,system-ui,sans-serif;font-size:clamp(1rem,1.6vw,1.3rem);color:#fff;font-weight:900;letter-spacing:-.02em}
 
+/* AGENTE (SESSÃO) */
+.agent-shell{background:linear-gradient(165deg,#fff 0%,#fff6 45%,#fff 100%);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:2.25rem 2rem}
+.agent-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:2.25rem;align-items:start}
+.agent-kicker{letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);font-size:12px;font-weight:800}
+.agent-h{letter-spacing:-.04em;color:var(--black);margin:.9rem 0 1.1rem;font-size:clamp(2rem,4vw,3.1rem);font-weight:900;line-height:1.05}
+.agent-h strong{font-weight:900}
+.agent-body{color:var(--text-2);font-size:max(1.05rem,var(--text-min));line-height:1.85;max-width:34rem}
+.agent-cards{display:flex;flex-direction:column;gap:1.25rem}
+.agent-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:1.35rem 1.35rem;display:grid;grid-template-columns:96px 1fr;gap:1.15rem;align-items:center}
+.agent-card.is-1{border-left:4px solid #00000042}
+.agent-card.is-2{border-left:4px solid #c06b39}
+.agent-card.is-3{border-left:4px solid var(--green)}
+.agent-card img{width:96px;height:96px;object-fit:contain;display:block}
+.agent-meta{letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);font-size:11px;font-weight:800}
+.agent-title{margin:.35rem 0 .35rem;color:var(--black);font-size:16px;font-weight:900;letter-spacing:-.02em}
+.agent-desc{color:var(--text-2);font-size:13px;line-height:1.55}
+
 /* PILOTO */
 .piloto-clean{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;margin-top:2.25rem;align-items:start}
 .piloto-blob{background:var(--orange);opacity:.2;width:500px;height:500px;bottom:-160px;right:-100px}
@@ -442,6 +459,48 @@ footer{background:var(--black);border-top:1px solid #ffffff0f;flex-wrap:wrap;jus
         <li>Evolução real (não só percepções)</li>
         <li>Tudo organizado em um único lugar</li>
       </ul>
+    </div>
+  </div>
+</section>
+
+<!-- AGENTE (SESSÃO) -->
+<section class="sec sec-white">
+  <div class="wrap">
+    <div class="agent-shell reveal">
+      <div class="agent-grid">
+        <div>
+          <p class="agent-kicker">AI AGENT · Feature exclusiva para mães</p>
+          <h2 class="agent-h">O CADU <strong>dorme</strong>, <strong>nasce</strong><br/>e <strong>cresce</strong> com a criança</h2>
+          <p class="agent-body">O agente do CADU não é uma feature qualquer — é uma presença viva que evolui com o desenvolvimento da criança. Ele existe em três estados: adormecido, recém-nascido e em crescimento.</p>
+          <p class="agent-body" style="margin-top:1.25rem">Antes do upload do neuropsicológico, o agent aparece dormindo no chat. Quando a mãe faz o upload, ele nasce. A partir daí, é nutrido pelas conquistas e pela evolução da criança — cada marco registrado alimenta o agent e o faz crescer.</p>
+        </div>
+        <div class="agent-cards">
+          <div class="agent-card is-1">
+            <img src="./assets/estado-01.png" alt="Estado 01 — Adormecido"/>
+            <div>
+              <div class="agent-meta">Estado 01 · Antes do neuropsicológico</div>
+              <div class="agent-title">Adormecido</div>
+              <div class="agent-desc">O CADU aparece dormindo no chat. A mãe o vê, mas ele ainda não acordou. Cria expectativa e curiosidade.</div>
+            </div>
+          </div>
+          <div class="agent-card is-2">
+            <img src="./assets/estado-02.png" alt="Estado 02 — Nasce"/>
+            <div>
+              <div class="agent-meta">Estado 02 · Upload do neuropsicológico</div>
+              <div class="agent-title">Nasce</div>
+              <div class="agent-desc">O upload do laudo acorda o CADU. Ele começa a ajudar a mãe em crises, dúvidas e momentos do dia a dia.</div>
+            </div>
+          </div>
+          <div class="agent-card is-3">
+            <img src="./assets/estado-03.png" alt="Estado 03 — Cresce"/>
+            <div>
+              <div class="agent-meta">Estado 03 · Com cada conquista</div>
+              <div class="agent-title">Cresce</div>
+              <div class="agent-desc">Nutrido pelas conquistas e marcos da criança, o CADU evolui com ela. A mãe vê esse crescimento acontecer.</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
