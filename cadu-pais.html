@@ -70,6 +70,8 @@ section{position:relative}
 .hero-brand-stage{pointer-events:none;text-align:center;z-index:0;height:calc(100vh - 64px);transform:translateY(calc(var(--hero-progress)*-72px)) scale(calc(1 - (var(--hero-progress)*.16)));opacity:max(0,calc(1 - (var(--hero-progress)*2.2)));filter:blur(calc(var(--hero-progress)*.6px));flex-direction:column;justify-content:center;align-items:center;gap:10px;display:flex;position:sticky;top:64px}
 .hero-scrollspace{height:120vh}
 .hero-brand{font-family:var(--font-logo);letter-spacing:-.06em;color:#f74e45;font-size:clamp(7.5rem,26vw,18rem);font-weight:900;line-height:.78}
+.hero-brand-lottie-wrap{width:min(860px,92vw);height:min(360px,36vh);display:flex;align-items:center;justify-content:center}
+.hero-brand-lottie-wrap svg{width:100%!important;height:100%!important;display:block}
 .hero-brand-sub{font-family:'Satoshi',-apple-system,system-ui,sans-serif;font-size:clamp(1.2rem,3vw,2.2rem);font-weight:800;color:var(--text-3);letter-spacing:-.02em;margin-top:.75rem}
 .hero-content{border-bottom:1px solid var(--border);z-index:2;background:#fff;padding:8rem 0 5rem;position:relative}
 .hero-inline-brand{font-family:var(--font-logo);letter-spacing:-.04em;color:#f74e45;opacity:clamp(0,calc((var(--hero-progress)-.82)*8),1);margin-bottom:.75rem;font-size:22px;font-weight:900}
@@ -229,7 +231,9 @@ footer{background:var(--black);border-top:1px solid #ffffff0f;flex-wrap:wrap;jus
   </div>
   <div class="wrap">
     <div class="hero-brand-stage" aria-hidden="true">
-      <div class="hero-brand enter-1">CADU</div>
+      <div class="hero-brand enter-1">
+        <div id="cadu-lottie" class="hero-brand-lottie-wrap"></div>
+      </div>
       <div class="hero-brand-sub">para pais</div>
     </div>
     <div class="hero-scrollspace"></div>
@@ -641,6 +645,44 @@ window.addEventListener('scroll', onScroll, {passive:true});
 onScroll();
 const io = new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');io.unobserve(x.target)}})},{threshold:.08,rootMargin:'0px 0px -36px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+async function initCaduLottie(){
+  const mount = document.getElementById('cadu-lottie');
+  if(!mount) return;
+  try{
+    const res = await fetch('./cadu-logo-lottie.json', {cache:'no-store'});
+    if(!res.ok) return;
+    const animationData = await res.json();
+
+    const run = () => {
+      if(!window.lottie) return false;
+      mount.innerHTML = '';
+      window.lottie.loadAnimation({
+        container: mount,
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        animationData,
+        rendererSettings: { preserveAspectRatio: 'xMidYMid meet' },
+      });
+      return true;
+    };
+
+    if(run()) return;
+    let tries = 0;
+    const t = setInterval(() => {
+      tries += 1;
+      if(run() || tries > 20) clearInterval(t);
+    }, 150);
+  }catch(e){}
+}
+
+const s = document.createElement('script');
+s.src = 'https://unpkg.com/lottie-web@5.12.2/build/player/lottie.min.js';
+s.async = true;
+s.onload = initCaduLottie;
+document.head.appendChild(s);
+setTimeout(initCaduLottie, 0);
 </script>
 </body>
 </html>
