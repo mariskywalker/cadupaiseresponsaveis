@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/cadu-pais.html" }
+  ]
+}
+
