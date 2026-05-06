@@ -690,6 +690,10 @@ footer{background:var(--black);border-top:1px solid #ffffff0f;flex-wrap:wrap;jus
           <label for="ea-whats">WhatsApp</label>
           <input id="ea-whats" name="whatsapp" autocomplete="tel" inputmode="tel" required/>
         </div>
+        <div class="field full">
+          <label for="ea-clinica">Vincule sua clínica (opcional)</label>
+          <input id="ea-clinica" name="clinica" placeholder="Nome da clínica ou profissional"/>
+        </div>
         <div class="field">
           <label for="ea-idade">Idade da criança (opcional)</label>
           <input id="ea-idade" name="idade" inputmode="numeric" placeholder="Ex.: 4"/>
@@ -789,6 +793,7 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
         body: JSON.stringify({
           Nome: nome,
           WhatsApp: whatsapp,
+          'Clínica (opcional)': (data.get('clinica') || '').toString().trim(),
           'Idade da criança': (data.get('idade') || '').toString().trim(),
           'A criança faz acompanhamento?': acompanhamento,
           Origem: 'Landing pais e responsáveis',
