@@ -774,6 +774,8 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
     if(modal.classList.contains('open') && e.key === 'Escape') close();
   });
 
+  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/SEU_ID_AQUI';
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = new FormData(form);
@@ -787,17 +789,19 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
     submitBtn?.setAttribute('disabled','true');
     try{
-      await fetch('https://formsubmit.co/ajax/contato@cadu.health', {
+      await fetch(FORMSPREE_ENDPOINT, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          Nome: nome,
-          WhatsApp: whatsapp,
-          'Clínica (opcional)': (data.get('clinica') || '').toString().trim(),
-          'Idade da criança': (data.get('idade') || '').toString().trim(),
-          'A criança faz acompanhamento?': acompanhamento,
-          Origem: 'Landing pais e responsáveis',
-        }),
+        headers: { 'Accept': 'application/json' },
+        body: (() => {
+          const payload = new FormData();
+          payload.append('Nome', nome);
+          payload.append('WhatsApp', whatsapp);
+          payload.append('Clínica (opcional)', (data.get('clinica') || '').toString().trim());
+          payload.append('Idade da criança', (data.get('idade') || '').toString().trim());
+          payload.append('A criança faz acompanhamento?', acompanhamento);
+          payload.append('Origem', 'Landing pais e responsáveis');
+          return payload;
+        })(),
       });
     }catch(_e){}
     submitBtn?.removeAttribute('disabled');
