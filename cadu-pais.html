@@ -209,6 +209,28 @@ section{position:relative}
 .cta-btn-sec{color:var(--text-2);background:#ffffff40;border:1px solid #0e0e0c29;border-radius:100px;padding:16px 28px;font-size:15px;font-weight:600;text-decoration:none;transition:background .18s;display:inline-flex;-webkit-backdrop-filter:blur(6px)}
 .cta-btn-sec:hover{background:#fff6}
 
+/* FORM MODAL */
+.modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:1.25rem;z-index:999}
+.modal.open{display:flex}
+.modal-backdrop{position:absolute;inset:0;background:#0e0e0c8a}
+.modal-card{position:relative;z-index:1;width:min(560px,92vw);background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-md);padding:1.5rem 1.35rem}
+.modal-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.75rem}
+.modal-title{font-size:1.25rem;font-weight:900;letter-spacing:-.02em;color:var(--black);line-height:1.2}
+.modal-close{appearance:none;border:none;background:transparent;color:var(--text-2);font-size:18px;line-height:1;padding:.35rem .45rem;border-radius:10px;cursor:pointer}
+.modal-close:hover{background:#00000008}
+.form-help{color:var(--text-2);font-size:14px;line-height:1.6;margin-bottom:1rem}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3)}
+.field input,.field select{font:inherit;border:1px solid var(--border-md);border-radius:12px;padding:12px 12px;background:var(--white);color:var(--text);outline:none}
+.field input:focus,.field select:focus{border-color:color-mix(in srgb, var(--red), #000 20%);box-shadow:0 0 0 3px color-mix(in srgb, var(--red), #fff 78%)}
+.field.full{grid-column:1 / -1}
+.form-actions{display:flex;gap:10px;align-items:center;justify-content:flex-start;margin-top:1rem;flex-wrap:wrap}
+.form-note{font-size:12px;color:var(--text-3);line-height:1.4;margin-top:.75rem}
+.form-success{display:none;margin-top:.75rem;font-weight:800;color:var(--black)}
+.form-success.visible{display:block}
+@media(max-width:640px){.form-grid{grid-template-columns:1fr}}
+
 /* FOOTER */
 footer{background:var(--black);border-top:1px solid #ffffff0f;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:.75rem;padding:1.4rem 2.5rem;display:flex}
 .footer-left{color:#fffc;font-size:13px;font-weight:700;font-family:'Satoshi',-apple-system,system-ui,sans-serif;max-width:520px;line-height:1.55}
@@ -634,17 +656,64 @@ footer{background:var(--black);border-top:1px solid #ffffff0f;flex-wrap:wrap;jus
     <p class="cta-ey reveal">CADU / Para pais</p>
     <h2 class="cta-h reveal d1">Quer acompanhar seu filho com mais clareza?</h2>
     <p class="cta-sub reveal d2">
-      Você começa a entender melhor nas primeiras semanas.
+      Você pode começar assim que o acesso for liberado.
     </p>
     <div class="cta-btns reveal d3">
-      <a href="mailto:contato@cadu.health?subject=Quero%20testar%20o%20CADU" class="cta-btn-main">
-        Quero testar o Cadu
+      <button type="button" class="cta-btn-main" id="open-early-access">
+        Quero acesso antecipado
         <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-      </a>
+      </button>
       <a href="mailto:contato@cadu.health?subject=Contato%20CADU%20pais" class="cta-btn-sec">Tirar uma dúvida</a>
     </div>
   </div>
 </section>
+
+<!-- MODAL: ACESSO ANTECIPADO -->
+<div class="modal" id="early-access-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="early-access-title">
+  <div class="modal-backdrop" data-close="true"></div>
+  <div class="modal-card">
+    <div class="modal-top">
+      <div>
+        <div class="modal-title" id="early-access-title">Receber acesso antecipado</div>
+        <div class="form-help">Você será um dos primeiros a acessar o Cadu assim que liberarmos.</div>
+      </div>
+      <button class="modal-close" type="button" aria-label="Fechar" data-close="true">✕</button>
+    </div>
+
+    <form id="early-access-form" novalidate>
+      <div class="form-grid">
+        <div class="field">
+          <label for="ea-nome">Nome</label>
+          <input id="ea-nome" name="nome" autocomplete="name" required/>
+        </div>
+        <div class="field">
+          <label for="ea-whats">WhatsApp</label>
+          <input id="ea-whats" name="whatsapp" autocomplete="tel" inputmode="tel" required/>
+        </div>
+        <div class="field">
+          <label for="ea-idade">Idade da criança (opcional)</label>
+          <input id="ea-idade" name="idade" inputmode="numeric" placeholder="Ex.: 4"/>
+        </div>
+        <div class="field">
+          <label for="ea-acomp">A criança faz acompanhamento?</label>
+          <select id="ea-acomp" name="acompanhamento" required>
+            <option value="" selected disabled>Selecione</option>
+            <option value="Sim">Sim</option>
+            <option value="Não">Não</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-red" type="submit" id="ea-submit">Quero entrar</button>
+        <button class="btn-ghost" type="button" data-close="true">Cancelar</button>
+      </div>
+
+      <div class="form-note">Seus dados são usados apenas para liberar o acesso ao Cadu.</div>
+      <div class="form-success" id="ea-success">Pronto! Assim que o acesso for liberado, te avisamos.</div>
+    </form>
+  </div>
+</div>
 
 <footer>
   <div class="footer-left"><span class="logo-font">CADU</span> - Estrutura e visibilidade no cuidado em neurodesenvolvimento · Para pais e responsáveis</div>
@@ -662,6 +731,74 @@ window.addEventListener('scroll', onScroll, {passive:true});
 onScroll();
 const io = new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');io.unobserve(x.target)}})},{threshold:.08,rootMargin:'0px 0px -36px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// CTA: early access modal + lightweight submit
+(() => {
+  const openBtn = document.getElementById('open-early-access');
+  const modal = document.getElementById('early-access-modal');
+  const form = document.getElementById('early-access-form');
+  const success = document.getElementById('ea-success');
+  const submitBtn = document.getElementById('ea-submit');
+  const firstField = document.getElementById('ea-nome');
+  let lastFocus = null;
+
+  if(!openBtn || !modal || !form) return;
+
+  const open = () => {
+    lastFocus = document.activeElement;
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    success?.classList.remove('visible');
+    form.reset();
+    setTimeout(() => firstField?.focus(), 0);
+  };
+
+  const close = () => {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+    if(lastFocus && lastFocus.focus) lastFocus.focus();
+  };
+
+  openBtn.addEventListener('click', open);
+  modal.addEventListener('click', (e) => {
+    const t = e.target;
+    if(t && t.getAttribute && t.getAttribute('data-close') === 'true') close();
+  });
+  window.addEventListener('keydown', (e) => {
+    if(modal.classList.contains('open') && e.key === 'Escape') close();
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const nome = (data.get('nome') || '').toString().trim();
+    const whatsapp = (data.get('whatsapp') || '').toString().trim();
+    const acompanhamento = (data.get('acompanhamento') || '').toString().trim();
+    if(!nome || !whatsapp || !acompanhamento){
+      (nome ? (!whatsapp ? document.getElementById('ea-whats') : document.getElementById('ea-acomp')) : document.getElementById('ea-nome'))?.focus();
+      return;
+    }
+
+    submitBtn?.setAttribute('disabled','true');
+    try{
+      await fetch('https://formsubmit.co/ajax/contato@cadu.health', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          Nome: nome,
+          WhatsApp: whatsapp,
+          'Idade da criança': (data.get('idade') || '').toString().trim(),
+          'A criança faz acompanhamento?': acompanhamento,
+          Origem: 'Landing pais e responsáveis',
+        }),
+      });
+    }catch(_e){}
+    submitBtn?.removeAttribute('disabled');
+    success?.classList.add('visible');
+  });
+})();
 
 async function initCaduLottie(){
   const mount = document.getElementById('cadu-lottie');
